@@ -1,0 +1,21 @@
+<div *ngIf="!nasaImageDetail">
+  <p>No hay imagen para mostrar.</p>
+</div>
+
+<div
+  *ngIf="nasaImageDetail"
+  class="w-[100%] grow border-2 flex flex-col justify-between"
+>
+  <div class="flex flex-col">
+    <h2 class="text-2xl font-bold">{{ nasaImageDetail?.title }}</h2>
+    <p class="mb-2"><strong>Fecha:</strong> {{ nasaImageDetail?.date }}</p>
+    <p class="mb-2">{{ nasaImageDetail?.explanation }}</p>
+  </div>
+  <a href="{{ nasaImageDetail?.hdurl }}" target="_blank">
+    <img
+      [src]="nasaImageDetail?.url"
+      alt="{{ nasaImageDetail?.title }}"
+      class="w-nasaImageDetail h-auto"
+    />
+  </a>
+</div>

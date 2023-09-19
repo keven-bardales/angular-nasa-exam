@@ -1,0 +1,38 @@
+<!-- list-page.component.html -->
+<div class="container mx-auto mt-8 flex flex-wrap gap-x-8 gap-y-5">
+  <h1 class="text-3xl font-bold mb-4 w-full text-center my-10">
+    Lista de Imágenes de la NASA
+  </h1>
+
+  <form [formGroup]="filterForm" class="w-full mb-4">
+    <label for="date">Filtrar por fecha:</label>
+    <input type="date" id="date" formControlName="date" />
+  </form>
+
+  <div *ngIf="nasaImages.length === 0">
+    <p>No hay imágenes para mostrar.</p>
+  </div>
+
+  <div
+    *ngFor="let nasaImage of nasaImages"
+    class="w-[30%] grow border-2 flex flex-col justify-between"
+  >
+    <div class="flex flex-col">
+      <h2 class="text-2xl font-bold">{{ nasaImage.title }}</h2>
+      <p class="mb-2"><strong>Fecha:</strong> {{ nasaImage.date }}</p>
+      <p class="mb-2">{{ nasaImage.explanation }}</p>
+    </div>
+    <a href="{{ nasaImage.hdurl }}" target="_blank">
+      <img
+        [src]="nasaImage.url"
+        alt="{{ nasaImage.title }}"
+        class="w-full h-auto"
+      />
+    </a>
+    <a
+      class="w-full h-10 text-center text-white bg-blue-500 flex items-center justify-center"
+      [routerLink]="['/nasa-images/detail', nasaImage.date]"
+      >Ver detalles</a
+    >
+  </div>
+</div>

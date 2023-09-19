@@ -1,0 +1,28 @@
+<nav class="bg-blue-500 p-4">
+  <div class="container mx-auto">
+    <div class="flex justify-between items-center">
+      <a class="text-white text-lg font-bold" href="#">TuApp</a>
+      <div>
+        <ul class="flex space-x-4">
+          <li>
+            <a
+              class="text-white"
+              [routerLink]="['/']"
+              routerLinkActive="text-yellow-400"
+              [routerLinkActiveOptions]="{ exact: true }"
+              >Inicio</a
+            >
+          </li>
+          <li>
+            <a
+              class="text-white"
+              [routerLink]="['/nasa-images/list']"
+              routerLinkActive="text-yellow-400"
+              >Lista de Imágenes</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
