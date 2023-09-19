@@ -21,8 +21,12 @@ export class ListPageComponent implements OnInit, OnDestroy {
   public filterForm: FormGroup;
 
   constructor(private nasaService: NasaListService, private fb: FormBuilder) {
+    // Dentro del constructor
     this.filterForm = this.fb.group({
-      date: [''],
+      filterType: [''],
+      startDate: [''],
+      endDate: [''],
+      count: [''],
     });
   }
 
@@ -36,12 +40,20 @@ export class ListPageComponent implements OnInit, OnDestroy {
     this.filterForm.valueChanges
       .pipe(takeUntil(this.$unSuscribeAll))
       .subscribe((value) => {
-        const date = value.date;
-        console.log(date);
-        if (date) {
-          this.nasaService.getNasaImagesList({ date }).subscribe();
-        } else {
-          // Puedes implementar aquí un caso por defecto si el filtro se limpia
+        const filterType = value.filterType;
+        if (filterType === 'dateRange') {
+          const startDate = value.startDate;
+          const endDate = value.endDate;
+          if (startDate && endDate) {
+            this.nasaService
+              .getNasaImagesList({ start_date: startDate, end_date: endDate })
+              .subscribe();
+          }
+        } else if (filterType === 'count') {
+          const count = value.count;
+          if (count) {
+            this.nasaService.getNasaImagesList({ count }).subscribe();
+          }
         }
       });
   }

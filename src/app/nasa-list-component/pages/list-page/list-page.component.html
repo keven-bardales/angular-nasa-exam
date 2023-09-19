@@ -3,13 +3,58 @@
   <h1 class="text-3xl font-bold mb-4 w-full text-center my-10">
     Lista de Imágenes de la NASA
   </h1>
+  <form [formGroup]="filterForm" class="w-full mb-4 p-4 bg-gray-100 rounded">
+    <div class="mb-4">
+      <label for="filterType" class="block text-sm font-medium text-gray-700"
+        >Filtrar por:</label
+      >
+      <select
+        id="filterType"
+        formControlName="filterType"
+        class="mt-1 p-2 w-full rounded border"
+      >
+        <option value="">Selecciona un filtro</option>
+        <option value="dateRange">Rango de fechas</option>
+        <option value="count">Cantidad</option>
+      </select>
+    </div>
 
-  <form [formGroup]="filterForm" class="w-full mb-4">
-    <label for="date">Filtrar por fecha:</label>
-    <input type="date" id="date" formControlName="date" />
+    <div *ngIf="filterForm.get('filterType')?.value === 'dateRange'">
+      <label for="startDate" class="block text-sm font-medium text-gray-700"
+        >Fecha de inicio:</label
+      >
+      <input
+        type="date"
+        id="startDate"
+        formControlName="startDate"
+        class="mt-1 p-2 w-full rounded border"
+      />
+
+      <label for="endDate" class="block text-sm font-medium text-gray-700 mt-4"
+        >Fecha de fin:</label
+      >
+      <input
+        type="date"
+        id="endDate"
+        formControlName="endDate"
+        class="mt-1 p-2 w-full rounded border"
+      />
+    </div>
+
+    <div *ngIf="filterForm.get('filterType')?.value === 'count'">
+      <label for="count" class="block text-sm font-medium text-gray-700"
+        >Cantidad:</label
+      >
+      <input
+        type="number"
+        id="count"
+        formControlName="count"
+        class="mt-1 p-2 w-full rounded border"
+      />
+    </div>
   </form>
 
-  <div *ngIf="nasaImages.length === 0">
+  <div *ngIf="nasaImages.length === 0" class="w-full text-center text-gray-500">
     <p>No hay imágenes para mostrar.</p>
   </div>
 
